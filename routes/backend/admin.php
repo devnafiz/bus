@@ -15,3 +15,4 @@ Route::get('dashboard', [DashboardController::class, 'index'])
  
  // General Setting
  Route::get('general-setting', [GeneralSettingController::class,'index'])->name('setting.index');
+ Route::post('general-setting', [GeneralSettingController::class,'update'])->name('setting.update');
