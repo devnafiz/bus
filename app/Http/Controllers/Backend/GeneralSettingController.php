@@ -8,5 +8,8 @@ use DB;
 
 class GeneralSettingController extends Controller
 {
-    //
+    public function index(){
+
+    	
+    }
 }
