@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use Tabuna\Breadcrumbs\Trail;
-use App\Http\Controllers\GeneralSettingController;
+use App\Http\Controllers\Backend\GeneralSettingController;
 
 // All route names are prefixed with 'admin.'.
 Route::redirect('/', '/admin/dashboard', 301);
@@ -14,4 +14,4 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 
  
  // General Setting
- Route::get('general-setting', 'GeneralSettingController@index')->name('setting.index');
+ Route::get('general-setting', [GeneralSettingController::class,'index'])->name('setting.index');

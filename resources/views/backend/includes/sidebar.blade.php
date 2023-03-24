@@ -74,11 +74,11 @@
 
             <li class="c-sidebar-nav-dropdown ">
                    <x-utils.link 
-                    href=""
+                     :href="route('admin.setting.index')"
                     icon="c-sidebar-nav-icon cil-user" 
                     class="c-sidebar-nav-link"
-                    :text="__('General Setting')"
-                    :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')"/>
+                    :text="__('General Setting1')"
+                    :active="activeClass(Route::is('admin.setting.index'), 'c-active')"/>
                         
             </li>
 

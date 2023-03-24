@@ -10,6 +10,6 @@ class GeneralSettingController extends Controller
 {
     public function index(){
 
-    	
+    	return view('backend.setting.general-setting');
     }
 }
