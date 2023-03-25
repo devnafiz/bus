@@ -52,10 +52,10 @@
                     )
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.manage.counter')"
                                 class="c-sidebar-nav-link"
-                                :text="__('User Management')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :text="__('Counter')"
+                                :active="activeClass(Route::is('admin.manage.counter'), 'c-active')" />
                         </li>
                     @endif
 
