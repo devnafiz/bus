@@ -20,6 +20,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
  //manage trip
 
  Route::name('trip.')->prefix('manage')->group(function(){
+ 	   Route::get('route', 'ManageTripController@routeList')->name('route');
 
 
  });
