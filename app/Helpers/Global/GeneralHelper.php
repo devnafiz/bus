@@ -49,4 +49,5 @@ if (! function_exists('homeRoute')) {
 
         return 'frontend.index';
     }
+    
 }

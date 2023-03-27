@@ -154,10 +154,10 @@
                         </li>
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.fleet.type')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Fleet Type')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.fleet.type'), 'c-active')" />
                         </li>
                     @endif
 
