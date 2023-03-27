@@ -10,5 +10,8 @@ use App\Models\Vehicle;
 
 class ManageFleetController extends Controller
 {
-    //
+    public function seatLayouts(){
+
+    	dd('ok');
+    }
 }
