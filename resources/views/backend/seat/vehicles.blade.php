@@ -15,6 +15,18 @@
                                         </button>
        </div>
        <br>
+       <div class="pull-left">
+
+         <form action="{{route('admin.fleet.vehicles.search') }}" method="GET" class="form-inline float-sm-right bg--white mb-2 ml-0 ml-xl-2 ml-lg-0">
+        <div class="input-group has_append  ">
+            <input type="text" name="search" class="form-control" placeholder="@lang('Reg. No.')" value="{{ $search ?? '' }}">
+            <div class="input-group-append">
+                <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+           
+       </div>
 
         <table class="table table-dark table-hover table-bordered">
         	<thead>
@@ -41,7 +53,7 @@
                     <td>{{ __($item->engine_no) }}</td>
                     <td>{{ __($item->chasis_no) }}</td>
                     <td>{{ __($item->model_no) }}</td>
-                    <td>{{ __($item->fleet_type_id) }}</td>
+                    <td>{{ __($item->fleetType->seat_layout) }}</td>
                     <td>{{ __($item->status) }}</td>
         			
         			<td></td>

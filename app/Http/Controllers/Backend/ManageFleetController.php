@@ -86,4 +86,45 @@ class ManageFleetController extends Controller
 
        return view('backend.seat.vehicles', compact('pageTitle', 'emptyMessage', 'vehicles', 'fleetType'));
     }
+
+    public function vehiclesStore(Request $request){
+         $this->validate($request,[
+            'nick_name'         => 'required|string',
+            'fleet_type'        => 'required|numeric',
+            'register_no'       => 'required|string|unique:vehicles',
+            'engine_no'         => 'required|string|unique:vehicles',
+            'model_no'          => 'required|string',
+            'chasis_no'         => 'required|string|unique:vehicles',
+        ]);
+
+        $vehicle = new Vehicle();
+        $vehicle->nick_name = $request->nick_name;
+        $vehicle->fleet_type_id = $request->fleet_type;
+        $vehicle->register_no = $request->register_no;
+        $vehicle->engine_no = $request->engine_no;
+        $vehicle->chasis_no = $request->chasis_no;
+        $vehicle->model_no = $request->model_no;
+        $vehicle->save();
+
+        $notify[] = ['success', 'Vehicle save successfully.'];
+        return back()->withNotify($notify);
+
+    }
+
+    //search
+
+    public function vehicleSearch(Request $request){
+
+          $search = $request->search;
+          //dd($search);
+          $pageTitle = 'Vehicles - '. $search;
+          $emptyMessage = 'No vehicles found';
+          $fleetType = FleetType::orderBy('id','desc')->get();
+
+          $vehicles = Vehicle::with('fleetType')->where('register_no',$search)->orderBy('id','desc')->paginate(10);
+
+          return view('backend.seat.vehicles', compact('pageTitle', 'emptyMessage', 'vehicles', 'fleetType'));
+
+
+    }
 }
