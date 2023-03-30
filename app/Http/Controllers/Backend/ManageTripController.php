@@ -20,8 +20,8 @@ class ManageTripController extends Controller
 
     	$pageTitle = 'All Routes';
         $emptyMessage = 'No route found';
-         $routes = VehicleRoute::with(['startFrom','endTo'])->orderBy('id', 'desc')->paginate(getPaginate());
-        $stoppages = Counter::active()->get();
+         $routes = VehicleRoute::with(['startFrom','endTo'])->orderBy('id', 'desc')->paginate(10);
+        $stoppages = Counter::where('status',1)->get();
         return view('backend.trip.route.list', compact('pageTitle', 'routes', 'emptyMessage', 'stoppages'));
 
     }

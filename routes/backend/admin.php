@@ -85,25 +85,25 @@ Route::get('dashboard', [DashboardController::class, 'index'])
             Route::post('schedule/active-disable', [ManageTripController::class,'schduleActiveDisabled'])->name('schedule.active.disable');
 
             //ticket price
-            Route::get('ticket-price', 'VehicleTicketController@ticketPriceList')->name('ticket.price');
-            Route::get('ticket-price/create', 'VehicleTicketController@ticketPriceCreate')->name('ticket.price.create');
-            Route::post('ticket-price', 'VehicleTicketController@ticketPriceStore')->name('ticket.price.store');
-            Route::get('route-data', 'VehicleTicketController@getRouteData')->name('ticket.get_route_data');
-            Route::get('ticket-price/check_price', 'VehicleTicketController@checkTicketPrice')->name('ticket.check_price');
-            Route::get('ticket-price/edit/{id}', 'VehicleTicketController@ticketPriceEdit')->name('ticket.price.edit');
-            Route::post('ticket-price/update/{id}', 'VehicleTicketController@ticketPriceUpdate')->name('ticket.price.update');
-            Route::post('ticket-price/delete', 'VehicleTicketController@ticketPriceDelete')->name('ticket.price.delete');
+            Route::get('ticket-price', [VehicleTicketController::class,'ticketPriceList'])->name('ticket.price');
+            Route::get('ticket-price/create', [VehicleTicketController::class,'ticketPriceCreate'])->name('ticket.price.create');
+            Route::post('ticket-price', [VehicleTicketController::class,'ticketPriceStore'])->name('ticket.price.store');
+            Route::get('route-data', [VehicleTicketController::class,'getRouteData'])->name('ticket.get_route_data');
+            Route::get('ticket-price/check_price', [VehicleTicketController::class,'checkTicketPrice'])->name('ticket.check_price');
+            Route::get('ticket-price/edit/{id}', [VehicleTicketController::class,'ticketPriceEdit'])->name('ticket.price.edit');
+            Route::post('ticket-price/update/{id}', [VehicleTicketController::class,'ticketPriceUpdate'])->name('ticket.price.update');
+            Route::post('ticket-price/delete', [VehicleTicketController::class,'ticketPriceDelete'])->name('ticket.price.delete');
 
             //trip
-            Route::get('trip', 'ManageTripController@trips')->name('list');
-            Route::post('trip', 'ManageTripController@tripStore')->name('store');
-            Route::post('trip/update/{id}', 'ManageTripController@tripUpdate')->name('update');
-            Route::post('trip/active-disable', 'ManageTripController@tripActiveDisable')->name('active.disable');
+            Route::get('trip', [ManageTripController::class,'trips'])->name('list');
+            Route::post('trip', [ManageTripController::class,'tripStore'])->name('store');
+            Route::post('trip/update/{id}', [ManageTripController::class,'tripUpdate'])->name('update');
+            Route::post('trip/active-disable', [ManageTripController::class,'tripActiveDisable'])->name('active.disable');
 
             //assigned vehicle
-            Route::get('assigned-vehicle', 'ManageTripController@assignedVehicleLists')->name('vehicle.assign');
-            Route::post('assigned-vehicle', 'ManageTripController@assignVehicle')->name('vehicle.assign');
-            Route::post('assigned-vehicle/update/{id}', 'ManageTripController@assignedVehicleUpdate')->name('assigned.vehicle.update');
-            Route::post('assigned-vehicle/active-disable', 'ManageTripController@assignedVehicleActiveDisabled')->name('assigned.vehicle.active.disable');
+            Route::get('assigned-vehicle', [ManageTripController::class,'assignedVehicleLists'])->name('vehicle.assign');
+            Route::post('assigned-vehicle', [ManageTripController::class,'assignVehicle'])->name('vehicle.assign');
+            Route::post('assigned-vehicle/update/{id}', [ManageTripController::class,'assignedVehicleUpdate'])->name('assigned.vehicle.update');
+            Route::post('assigned-vehicle/active-disable', [ManageTripController::class,'assignedVehicleActiveDisabled'])->name('assigned.vehicle.active.disable');
         });
 
