@@ -164,10 +164,10 @@
                     @if ($logged_in_user->hasAllAccess())
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.role.index')"
+                                :href="route('admin.fleet.vehicles')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Vehicles')"
-                                :active="activeClass(Route::is('admin.auth.role.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.fleet.vehicles'), 'c-active')" />
                         </li>
                     @endif
                 </ul>

@@ -59,6 +59,7 @@ class ManageFleetController extends Controller
             'deck_seats.*.numeric'   => 'Seat number for all deck is must be a number',
             'deck_seats.*.gt:0'      => 'Seat number for all deck is must be greater than 0',
         ]);
+        
         $fleetType = new FleetType();
         $fleetType->name = $request->name;
         $fleetType->seat_layout = $request->seat_layout;
@@ -71,5 +72,18 @@ class ManageFleetController extends Controller
 
         $notify[] = ['success','Fleet type saved successfully'];
         return back()->withNotify($notify);
+    }
+
+    //vehicle
+
+    public function vehicles(){
+
+        $pageTitle = 'All Seat Layout';
+        $emptyMessage = 'No counter found';
+        $seatLayouts = SeatLayout::all();
+        $fleetType = FleetType::orderBy('id','desc')->get();
+        $vehicles = Vehicle::with('fleetType')->orderBy('id','desc')->paginate(10);
+
+       return view('backend.seat.vehicles', compact('pageTitle', 'emptyMessage', 'vehicles', 'fleetType'));
     }
 }
