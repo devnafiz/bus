@@ -64,3 +64,42 @@ Route::get('dashboard', [DashboardController::class, 'index'])
             Route::post('vehicles/active-disable', [ManageFleetController::class,'vehiclesActiveDisabled'])->name('vehicles.active.disable');
             Route::get('vehicles/search', [ManageFleetController::class,'vehicleSearch'])->name('vehicles.search');
         });
+
+        Route::name('trip.')->prefix('manage')->group(function(){
+            //route
+            Route::get('route', 'ManageTripController@routeList')->name('route');
+            Route::get('route/create', 'ManageTripController@routeCreate')->name('route.create');
+            Route::get('route/edit/{id}', 'ManageTripController@routeEdit')->name('route.edit');
+            Route::post('route', 'ManageTripController@routeStore')->name('route.store');
+            Route::post('route/update/{id}', 'ManageTripController@routeUpdate')->name('route.update');
+            Route::post('route/active-disable', 'ManageTripController@routeActiveDisabled')->name('route.active.disable');
+
+            //schedule
+            Route::get('schedule', 'ManageTripController@schedules')->name('schedule');
+            Route::post('schedule', 'ManageTripController@schduleStore')->name('schedule.store');
+            Route::post('schedule/update/{id}', 'ManageTripController@schduleUpdate')->name('schedule.update');
+            Route::post('schedule/active-disable', 'ManageTripController@schduleActiveDisabled')->name('schedule.active.disable');
+
+            //ticket price
+            Route::get('ticket-price', 'VehicleTicketController@ticketPriceList')->name('ticket.price');
+            Route::get('ticket-price/create', 'VehicleTicketController@ticketPriceCreate')->name('ticket.price.create');
+            Route::post('ticket-price', 'VehicleTicketController@ticketPriceStore')->name('ticket.price.store');
+            Route::get('route-data', 'VehicleTicketController@getRouteData')->name('ticket.get_route_data');
+            Route::get('ticket-price/check_price', 'VehicleTicketController@checkTicketPrice')->name('ticket.check_price');
+            Route::get('ticket-price/edit/{id}', 'VehicleTicketController@ticketPriceEdit')->name('ticket.price.edit');
+            Route::post('ticket-price/update/{id}', 'VehicleTicketController@ticketPriceUpdate')->name('ticket.price.update');
+            Route::post('ticket-price/delete', 'VehicleTicketController@ticketPriceDelete')->name('ticket.price.delete');
+
+            //trip
+            Route::get('trip', 'ManageTripController@trips')->name('list');
+            Route::post('trip', 'ManageTripController@tripStore')->name('store');
+            Route::post('trip/update/{id}', 'ManageTripController@tripUpdate')->name('update');
+            Route::post('trip/active-disable', 'ManageTripController@tripActiveDisable')->name('active.disable');
+
+            //assigned vehicle
+            Route::get('assigned-vehicle', 'ManageTripController@assignedVehicleLists')->name('vehicle.assign');
+            Route::post('assigned-vehicle', 'ManageTripController@assignVehicle')->name('vehicle.assign');
+            Route::post('assigned-vehicle/update/{id}', 'ManageTripController@assignedVehicleUpdate')->name('assigned.vehicle.update');
+            Route::post('assigned-vehicle/active-disable', 'ManageTripController@assignedVehicleActiveDisabled')->name('assigned.vehicle.active.disable');
+        });
+

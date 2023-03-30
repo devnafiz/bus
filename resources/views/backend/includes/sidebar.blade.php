@@ -115,6 +115,27 @@
                                 :text="__('Schedule')"
                                 :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
                         </li>
+                        <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.auth.user.index')"
+                                class="c-sidebar-nav-link"
+                                :text="__('Ticket Price')"
+                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                        </li>
+                        <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.auth.user.index')"
+                                class="c-sidebar-nav-link"
+                                :text="__('Trip')"
+                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                        </li>
+                        <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.auth.user.index')"
+                                class="c-sidebar-nav-link"
+                                :text="__('Assigned Vehicle')"
+                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                        </li>
                     @endif
 
                   
