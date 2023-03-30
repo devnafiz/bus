@@ -5,6 +5,7 @@ use Tabuna\Breadcrumbs\Trail;
 use App\Http\Controllers\Backend\GeneralSettingController;
 use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\ManageFleetController;
+use App\Http\Controllers\Backend\ManageTripController;
 
 // All route names are prefixed with 'admin.'.
 Route::redirect('/', '/admin/dashboard', 301);
@@ -65,20 +66,23 @@ Route::get('dashboard', [DashboardController::class, 'index'])
             Route::get('vehicles/search', [ManageFleetController::class,'vehicleSearch'])->name('vehicles.search');
         });
 
+
+
+
         Route::name('trip.')->prefix('manage')->group(function(){
             //route
-            Route::get('route', 'ManageTripController@routeList')->name('route');
-            Route::get('route/create', 'ManageTripController@routeCreate')->name('route.create');
-            Route::get('route/edit/{id}', 'ManageTripController@routeEdit')->name('route.edit');
-            Route::post('route', 'ManageTripController@routeStore')->name('route.store');
-            Route::post('route/update/{id}', 'ManageTripController@routeUpdate')->name('route.update');
-            Route::post('route/active-disable', 'ManageTripController@routeActiveDisabled')->name('route.active.disable');
+            Route::get('route', [ManageTripController::class,'routeList'])->name('route');
+            Route::get('route/create', [ManageTripController::class,'routeCreate'])->name('route.create');
+            Route::get('route/edit/{id}', [ManageTripController::class,'routeEdit'])->name('route.edit');
+            Route::post('route', [ManageTripController::class,'routeStore'])->name('route.store');
+            Route::post('route/update/{id}', [ManageTripController::class,'routeUpdate'])->name('route.update');
+            Route::post('route/active-disable',[ManageTripController::class,'routeActiveDisabled'])->name('route.active.disable');
 
             //schedule
-            Route::get('schedule', 'ManageTripController@schedules')->name('schedule');
-            Route::post('schedule', 'ManageTripController@schduleStore')->name('schedule.store');
-            Route::post('schedule/update/{id}', 'ManageTripController@schduleUpdate')->name('schedule.update');
-            Route::post('schedule/active-disable', 'ManageTripController@schduleActiveDisabled')->name('schedule.active.disable');
+            Route::get('schedule', [ManageTripController::class,'schedules'])->name('schedule');
+            Route::post('schedule', [ManageTripController::class,'schduleStore'])->name('schedule.store');
+            Route::post('schedule/update/{id}', [ManageTripController::class,'schduleUpdate'])->name('schedule.update');
+            Route::post('schedule/active-disable', [ManageTripController::class,'schduleActiveDisabled'])->name('schedule.active.disable');
 
             //ticket price
             Route::get('ticket-price', 'VehicleTicketController@ticketPriceList')->name('ticket.price');

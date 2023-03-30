@@ -103,38 +103,38 @@
                     )
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.trip.route')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Route')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.trip.route'), 'c-active')" />
                         </li>
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.trip.schedule')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Schedule')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.trip.schedule'), 'c-active')" />
                         </li>
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.trip.ticket.price')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Ticket Price')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.trip.ticket.price'), 'c-active')" />
                         </li>
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.trip.list')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Trip')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.trip.list'), 'c-active')" />
                         </li>
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.user.index')"
+                                :href="route('admin.trip.vehicle.assign')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Assigned Vehicle')"
-                                :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
+                                :active="activeClass(Route::is('admin.trip.vehicle.assign'), 'c-active')" />
                         </li>
                     @endif
 
