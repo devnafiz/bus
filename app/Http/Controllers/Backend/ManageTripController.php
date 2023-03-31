@@ -85,4 +85,13 @@ class ManageTripController extends Controller
 
 
     }
+
+    //sehdule
+
+     public function schedules(){
+        $pageTitle = 'All Schedules';
+        $emptyMessage = 'No schedule found';
+        $schedules = Schedule::orderBy('id', 'desc')->paginate(10);
+        return view('backend.trip.schedule.index', compact('pageTitle','emptyMessage', 'schedules'));
+    }
 }
