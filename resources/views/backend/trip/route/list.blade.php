@@ -43,8 +43,8 @@
         		<tr>
         			<td>{{__( $k+1)}}</td>
         			<td>{{ __($item->name) }}</td>
-                    <td>{{ __($item->start_from) }}</td>
-                    <td>{{ __($item->end_to) }}</td>
+                    <td>{{ __($item->startFrom->name) }}</td>
+                    <td>{{ __($item->endTo->name) }}</td>
                     <td>{{ __($item->distance) }}</td>
                     <td>{{ __($item->time) }}</td>
                   
