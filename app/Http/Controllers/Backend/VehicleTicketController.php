@@ -35,7 +35,19 @@ class VehicleTicketController extends Controller
          $routes =VehicleRoute::where('status',1)->get();
          $fleettypes = FleetType::where('status',1)->get();
 
-          return view('backend.trip.ticket.create',compact('routes','emptyMessage','pageTitle','fleettypes'));
+         return view('backend.trip.ticket.create',compact('routes','emptyMessage','pageTitle','fleettypes'));
+    }
+
+
+    public function ticketPriceStore(Request $request){
+
+
+
+    }
+
+    public function getRouteData(){
+
+    	dd('ok');
     }
 
 

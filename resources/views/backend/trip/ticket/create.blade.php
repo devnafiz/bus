@@ -18,7 +18,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label font-weight-bold"> @lang('Fleet Type')</label>
-                                <select name="start_from" class="select2-basic form-control" required>
+                                <select name="fleet_type" class="select2-basic form-control" required>
                                     <option value="">@lang('Select an option')</option>
                                     @foreach ($fleettypes as $fleet)
                                         <option value="{{ $fleet->id }}">{{ __($fleet->name) }}</option>
@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label font-weight-bold"> @lang('Route')</label>
-                                <select name="start_from" class="form-control select2-basic" required>
+                                <select name="route" class="form-control select2-basic" required>
                                     <option value="">@lang('Select an option')</option>
                                     @foreach ($routes as $route)
                                         <option value="{{ $route->id }}">{{ __($route->name) }}</option>
@@ -49,7 +49,13 @@
                         </div>
 
                        
-                       
+                       <div class="col-md-12 price-error-message">
+
+                        </div>
+
+                        <div class="price-wrapper col-md-12">
+
+                        </div>
                         
                        
                     </div>
@@ -63,9 +69,27 @@
 
                     </div>
                 </form>
+
+
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        
+       $(document).on('change','select[name=fleet_type] , select[name=route]',function(){
+
+            //alert('hi');
+            var routeId =$('select[name="route"]').find("option:selected").val();
+            var fleetTypeId = $('select[name="fleet_type"]').find("option:selected").val();
+
+            alert(routeId);
+
+       });
+
+    </script>            
            
        
 
 
    
 @endsection
+
+
