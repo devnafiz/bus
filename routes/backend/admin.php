@@ -7,6 +7,8 @@ use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\ManageFleetController;
 use App\Http\Controllers\Backend\ManageTripController;
 
+use App\Http\Controllers\Backend\VehicleTicketController;
+
 // All route names are prefixed with 'admin.'.
 Route::redirect('/', '/admin/dashboard', 301);
 Route::get('dashboard', [DashboardController::class, 'index'])

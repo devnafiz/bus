@@ -14,6 +14,7 @@ use App\Models\Trip;
 use Carbon\Carbon;
 
 
+
 class ManageTripController extends Controller
 {
     public function routeList(){
@@ -119,25 +120,6 @@ class ManageTripController extends Controller
     }
 
 
-    //ticket price
-
-    public function ticketPriceList(){
-
-    	 $pageTitle = 'All Ticket price';
-         $emptyMessage = 'No schedule found';
-         $routes = VehicleRoute::with(['startFrom','endTo'])->orderBy('id', 'desc')->get();
-         $fleettype=FleetType::where('status',1)->get();
-    }
-
-
-    public function ticketPriceCreate(){
-
-    	$pageTitle = ' Ticket Create';
-         $emptyMessage = 'No schedule found';
-         $routes = VehicleRoute::with(['startFrom','endTo'])->orderBy('id', 'desc')->get();
-         $fleettype=FleetType::where('status',1)->get();
-    }
-
-
+    
 
 }
