@@ -101,14 +101,14 @@
         </div>
     </div>
 
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ asset('/css/clock-picker.min.css') }}">      
 
 <script src="{{ asset('js/clock-picker.min.js') }}"></script>    
     <script type="text/javascript">
 
 
-$(document).ready(function(){
+jQuery(function($) {    
     $('.clockpicker').clockpicker({
     placement: 'top',
     align: 'left',

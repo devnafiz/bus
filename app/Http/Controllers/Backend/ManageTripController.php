@@ -94,4 +94,50 @@ class ManageTripController extends Controller
         $schedules = Schedule::orderBy('id', 'desc')->paginate(10);
         return view('backend.trip.schedule.index', compact('pageTitle','emptyMessage', 'schedules'));
     }
+
+
+    public function schduleStore(Request $request){
+            //dd($request->all());
+    	$request->validate([
+            'start_from'   => 'required|date_format:H:i',
+            'end_at'       => 'required|date_format:H:i',
+        ]);
+
+        $check = Schedule::where('start_from', Carbon::parse($request->start_from)->format('H:i:s'))->where('end_at', Carbon::parse($request->end_at)->format('H:i:s'))->first();
+        if($check){
+            $notify[] = ['error', 'This schedule has already added'];
+            return redirect()->back()->withNotify($notify);
+        }
+
+        Schedule::create([
+            'start_from' => $request->start_from,
+            'end_at'     => $request->end_at
+        ]);
+
+        $notify[] = ['success', 'Schedule save successfully'];
+        return back()->withNotify($notify);
+    }
+
+
+    //ticket price
+
+    public function ticketPriceList(){
+
+    	 $pageTitle = 'All Ticket price';
+         $emptyMessage = 'No schedule found';
+         $routes = VehicleRoute::with(['startFrom','endTo'])->orderBy('id', 'desc')->get();
+         $fleettype=FleetType::where('status',1)->get();
+    }
+
+
+    public function ticketPriceCreate(){
+
+    	$pageTitle = ' Ticket Create';
+         $emptyMessage = 'No schedule found';
+         $routes = VehicleRoute::with(['startFrom','endTo'])->orderBy('id', 'desc')->get();
+         $fleettype=FleetType::where('status',1)->get();
+    }
+
+
+
 }
