@@ -41,13 +41,25 @@ class VehicleTicketController extends Controller
 
     public function ticketPriceStore(Request $request){
 
-
+      dd($request->all());
 
     }
 
-    public function getRouteData(){
+    public function getRouteData(Request $request){
 
-    	dd('ok');
+        $route      = VehicleRoute::where('id', $request->vehicle_route_id)->where('status', 1)->first();
+
+         $check      = TicketPrice::where('vehicle_route_id', $request->vehicle_route_id)->where('fleet_type_id', $request->fleet_type_id)->first();
+
+         if($check){
+
+         	return response()->json(['error'=> trans('You have added prices for this fleet type on this route')]);
+         }
+         $stoppages  = array_values($route->stoppages);
+         $stoppages  = stoppageCombination($stoppages, 2);
+         //dd( $stoppages);
+        return view('backend.trip.ticket.route_data', compact('stoppages', 'route'));
+    	
     }
 
 

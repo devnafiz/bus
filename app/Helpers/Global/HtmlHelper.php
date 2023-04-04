@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Frontend;
+use App\Models\Counter;
 
 if (! function_exists('activeClass')) {
     /**
@@ -44,6 +45,45 @@ if (! function_exists('htmlLang')) {
     }
     return $content;
 
+        }
+    }
+
+
+    if(!function_exists('stoppageCombination')){
+
+        function stoppageCombination($numbers, $arraySize, $level = 1, $i = 0, $addThis = [])
+        {
+            // If this is the last layer, use a different method to pass the number.
+            if ($level == $arraySize) {
+                $result = [];
+                for (; $i < count($numbers); $i++) {
+                    $result[] = array_merge($addThis, array($numbers[$i]));
+                }
+               
+                return $result;
+            }
+
+            $result = [];
+            $nextLevel = $level + 1;
+            for (; $i < count($numbers); $i++) {
+                // Add the data given from upper level to current iterated number and pass
+                // the new data to a deeper level.
+                $newAdd = array_merge($addThis, array($numbers[$i]));
+                $temp = stoppageCombination($numbers, $arraySize, $nextLevel, $i, $newAdd);
+
+
+                $result = array_merge($result, $temp);
+
+            }
+              //dd($result) ;
+            return $result;
+        }
+    }
+
+    if(!function_exists('getStoppageInfo')){
+        function getStoppageInfo($stoppages){
+             $data = Counter::routeStoppages($stoppages);
+         return $data;
         }
     }
 }

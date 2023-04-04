@@ -80,7 +80,46 @@
             var routeId =$('select[name="route"]').find("option:selected").val();
             var fleetTypeId = $('select[name="fleet_type"]').find("option:selected").val();
 
-            alert(routeId);
+            if(routeId && fleetTypeId){
+
+                var data={
+
+                    'vehicle_route_id' :routeId,
+                    'fleet_type_id' :fleetTypeId
+                }
+
+                $.ajax({
+
+
+                     url:"{{route('admin.trip.ticket.get_route_data')}}",
+                     method:"get",
+                     data:data,
+                     success:function(result){
+
+                        if(result.error){
+                           $('.price-error-message').html(`<h5 class="text--danger">${result.error}</h5>`);
+                            $('.price-wrapper').html('');
+                            $('.submit-button').attr('disabled', 'disabled');
+
+
+                        }else{
+
+                            $('.price-error-message').html(``);
+                            $('.submit-button').removeAttr('disabled');
+                            $('.price-wrapper').html(`<h5>${result}</h5>`);
+                            
+                        }
+
+
+
+
+                     }
+
+
+                })
+            }else{
+                $('.price-wrapper').html('');
+            }
 
        });
 
