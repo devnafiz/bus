@@ -44,7 +44,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label font-weight-bold"> @lang('Price')</label>
-                                <input type="text" class="form-control" placeholder="@lang('Enter Price')" name="price" required>
+                                <input type="text" class="form-control" placeholder="@lang('Enter Price')" name="main_price" required>
                             </div>
                         </div>
 

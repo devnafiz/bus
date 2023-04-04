@@ -77,6 +77,79 @@
 
                     </div>
                 </form>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    
+   $(document).ready(function(){
+      
+
+       $('#has-stoppage').on('click', function() {
+            if(this.checked){
+                var stps =
+                        `<div class="row stoppages-row">
+                            <div class="col-md-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@lang('1')</span>
+                                    </div>
+                                    <select class="select2-basic form-control w-auto" name="stoppages[1]" required >
+                                        <option value="" selected>@lang('Select Stoppage')</option>
+                                        @foreach ($stoppages as $stoppage)
+                                        <option value="{{$stoppage->id}}">{{$stoppage->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-danger remove-stoppage"><i class="las la-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn--success add-stoppage-btn mb-1"><i class="la la-plus"></i>@lang('Next Stoppage')</button> <span class="text--danger"> @lang('Make sure that you are adding stoppages serially followed by the starting point')</span>
+
+                        `;
+                $('.stoppages-wrapper').prepend(stps);
+                $('.select2-basic').select2({
+                    dropdownParent: $('.stoppages-wrapper')
+                    
+                });
+            }else{
+                itr = 2;
+                $('.stoppages-wrapper').html('');
+            }
+        });
+
+        var itr = 2;
+        $(document).on('click', '.add-stoppage-btn', function(){
+            var stps = `<div class="col-md-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">${itr}</span>
+                                </div>
+                                <select class="select2-basic form-control w-auto" name="stoppages[${itr}]">
+                                    <option value="" selected>@lang('Select Stoppage')</option>
+                                    @foreach ($stoppages as $stoppage)
+                                    <option value="{{$stoppage->id}}">{{$stoppage->name}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-danger remove-stoppage"><i class="las la-times"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+
+            $('.stoppages-row').append(stps);
+
+            $('.select2-basic').select2({
+                dropdownParent: $('.stoppages-wrapper'),
+            });
+            itr++;
+        });
+
+   })
+</script>
            
        
 

@@ -12,6 +12,7 @@ use App\Models\FleetType;
 use App\Models\Schedule;
 use App\Models\Trip;
 use Carbon\Carbon;
+use App\Models\TicketPriceByStoppage;
 
 class VehicleTicketController extends Controller
 {
@@ -41,7 +42,38 @@ class VehicleTicketController extends Controller
 
     public function ticketPriceStore(Request $request){
 
-      dd($request->all());
+      $request->validate([
+            'fleet_type'    => 'required|integer|gt:0',
+            'route'         => 'required|integer|gt:0',
+            'main_price'    => 'required|numeric',
+            'price'         => 'sometimes|required|array|min:1',
+            'price.*'       => 'sometimes|required|numeric',
+
+      ]);
+
+        $check = TicketPrice::where('fleet_type_id', $request->fleet_type)->where('vehicle_route_id', $request->route)->first();
+        if($check){
+            $notify[] = ['error', 'Duplicate fleet type and route can\'t be allowed'];
+            return back()->withNotify($notify);
+        }
+
+        $create = new TicketPrice();
+        $create->fleet_type_id = $request->fleet_type;
+        $create->vehicle_route_id = $request->route;
+        $create->price = $request->main_price;
+        $create->save();
+
+         foreach($request->price as $key=>$val){
+         	 $idArray = explode('-', $key);
+              $priceByStoppage = new TicketPriceByStoppage();
+            $priceByStoppage->ticket_price_id = $create->id;
+            $priceByStoppage->source_destination = $idArray;
+            $priceByStoppage->price = $val;
+            $priceByStoppage->save();
+          
+        }
+         $notify[] = ['success', 'Ticket price added successfully'];
+        return back()->withNotify($notify);
 
     }
 
