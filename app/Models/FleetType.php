@@ -14,5 +14,6 @@ class FleetType extends Model
         'deck_seats' => 'object',
         'facilities' => 'array'
     ];
+    
 
 }

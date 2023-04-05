@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use App\Models\GeneralSetting;
 
 /**
  * Class AppServiceProvider.
@@ -27,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $general = GeneralSetting::first();
+        $viewShare['general'] = $general;
+
+        view()->share($viewShare);
         Paginator::useBootstrap();
     }
 }

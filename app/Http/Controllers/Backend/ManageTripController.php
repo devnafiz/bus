@@ -120,6 +120,25 @@ class ManageTripController extends Controller
     }
 
 
+    //trip 
+
+     public function trips(){
+             $pageTitle = 'All Schedules';
+             $emptyMessage = 'No schedule found';
+             $fleetTypes = FleetType::where('status', 1)->get();
+             $routes = VehicleRoute::where('status', 1)->get();
+             $schedules = Schedule::where('status', 1)->get();
+             $stoppages = Counter::where('status', 1)->get();
+
+             $trips =Trip::with('fleetType','route','schedule')->orderBy('id','desc')->paginate(10);
+
+
+             return view('backend.trip.index', compact('pageTitle', 'stoppages','fleetTypes','routes','schedules','stoppages','trips','emptyMessage'));
+
+
+     }
+
+
     
 
 }

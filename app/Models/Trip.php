@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Trip extends Model
 {
     use HasFactory;
+
+    public function fleetType(){
+        return $this->belongsTo(FleetType::class);
+    }
+
+    public function route(){
+        return $this->belongsTo(VehicleRoute::class ,'vehicle_route_id' );
+    }
+
+    public function schedule(){
+        return $this->belongsTo(Schedule::class);
+    }
 }

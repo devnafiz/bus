@@ -6,7 +6,7 @@
 @section('content')
         <div class="pull-left">
         	
-        	<a  href="{{route('admin.trip.ticket.price.create')}}" class="badge badge_info">Add Price</a>
+        	<a  href="{{route('admin.trip.ticket.price.create')}}" class="badge badge_info">Add trip</a>
               
        </div>
        <br>
@@ -26,22 +26,21 @@
         <table class="table table-dark table-hover table-bordered">
         	<thead>
         		<tr>
-	        		<th>@lang('ID')</th>
-	                <th>@lang('Fleet Type')</th>
-                    <th>@lang('Rouet')</th>
-                    <th>@lang('price')</th>
-                   
+	        		<th>@lang('Title')</th>
+                    <th>@lang('AC / Non-AC')</th>
+                    <th>@lang('Day Off')</th>
+                    <th>@lang('Status')</th>
                     <th>@lang('Action')</th>
         		</tr>
 
         	</thead>
         	<tbody>
-        		 @forelse($prices as $k=>$item)
+        		 @forelse($trips as $k=>$item)
         		<tr>
-        			<td>{{__( $k+1)}}</td>
-        			<td>{{ __($item->fleetType->name) }}</td>
-                    <td>{{ __($item->route->name) }}</td>
-                    <td>{{ __($item->price) }}{{ __($general->cur_text) }}</td>
+        			<td>{{__( $item+title)}}</td>
+        			<td>{{ __($item->fleetType->has_ac =1 ? 'Ac' :'no ac') }}</td>
+                    <td>{{ __($item->day_off) }}</td>
+                   
                     
                   
         			<td></td>
