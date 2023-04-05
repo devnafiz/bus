@@ -2,6 +2,7 @@
 
 use App\Models\Frontend;
 use App\Models\Counter;
+use Carbon\Carbon;
 
 if (! function_exists('activeClass')) {
     /**
@@ -84,6 +85,19 @@ if (! function_exists('htmlLang')) {
         function getStoppageInfo($stoppages){
              $data = Counter::routeStoppages($stoppages);
          return $data;
+        }
+    }
+
+
+    if(!function_exists('showDateTime')){
+
+        function showDateTime($date, $format = 'Y-m-d h:i A'){
+
+            $lang = session()->get('lang');
+              Carbon::setlocale($lang);
+              return Carbon::parse($date)->translatedFormat($format);
+
+
         }
     }
 }

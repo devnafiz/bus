@@ -139,6 +139,12 @@ class ManageTripController extends Controller
      }
 
 
+     public function tripStore(Request $request){
+
+        dd($request->all());
+     }
+
+
     
 
 }

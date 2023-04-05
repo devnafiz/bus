@@ -6,7 +6,13 @@
 @section('content')
         <div class="pull-left">
         	
-        	<a  href="{{route('admin.trip.ticket.price.create')}}" class="badge badge_info">Add trip</a>
+         <button type="button" class="icon-btn ml-1 editBtn"
+                                                data-toggle="modal" data-target="#addModal"
+                                                
+                                              
+                                                data-original-title="@lang('Update')">
+                                            <i class="la la-pen"></i> Add trip
+                                        </button>
               
        </div>
        <br>
@@ -56,30 +62,83 @@
          </table>
 
 
-          <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+         <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> @lang('Add Schedule')</h5>
+                    <h5 class="modal-title"> @lang('Add Trip')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.trip.schedule.store')}}" method="POST">
+                <form action="{{ route('admin.trip.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="form-control-label font-weight-bold"> @lang('Start From')</label>
-                            <div class="input-group clockpicker">
-                                <input type="text" class="form-control" placeholder="--:--" name="start_from" autocomplete="off" required>
-                            </div>
+                            <label class="form-control-label font-weight-bold"> @lang('Title')</label>
+                            <input type="text" class="form-control" placeholder="@lang('Enter Title')" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label font-weight-bold"> @lang('Fleet Type')</label>
+                            <select name="fleet_type" class="select2-basic fleet_type1 form-control" required>
+                                <option value="">@lang('Select an option')</option>
+                                @foreach ($fleetTypes as $item)
+                                    <option value="{{ $item->id }}" data-name="{{$item->name}}">{{ __($item->name) }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-control-label font-weight-bold"> @lang('End At')</label>
-                            <div class="input-group clockpicker">
-                                <input type="text" class="form-control" placeholder="--:--" name="end_at" autocomplete="off" required>
-                            </div>
+                            <label class="form-control-label font-weight-bold"> @lang('Route')</label>
+                            <select name="route" class="select2-basic route1 form-control" required>
+                                <option value="">@lang('Select an option')</option>
+                                @foreach ($routes as $item)
+                                    <option value="{{ $item->id }}"  data-name="{{$item->name}}">{{ __($item->name) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label font-weight-bold"> @lang('Schedule')</label>
+                            <select name="schedule" class=" form-control select2-basic schedule1" required>
+                                <option value="">@lang('Select an option')</option>
+                                @foreach ($schedules as $item)
+                                    <option value="{{ $item->id }}" data-name="{{ showDateTime($item->start_from, 'h:i a').' - '. showDateTime($item->end_to, 'h:i a') }}">{{ __(showDateTime($item->start_from, 'h:i a').' - '. showDateTime($item->end_to, 'h:i a')) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label font-weight-bold"> @lang('Start From')</label>
+                            <select name="start_from" class="select2-basic start_form1 form-control" required>
+                                <option value="">@lang('Select an option')</option>
+                                @foreach ($stoppages as $item)
+                                    <option value="{{ $item->id }}" data-name="{{$item->name}}">{{ __($item->name) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label font-weight-bold"> @lang('End To')</label>
+                            <select name="end_to" class="select2-basic end_to1 form-control" required>
+                                <option value="">@lang('Select an option')</option>
+                                @foreach ($stoppages as $item)
+                                    <option value="{{ $item->id }}" data-name="{{$item->name}}">{{ __($item->name) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label font-weight-bold" for="day_off">@lang('Day Off')</label>
+                            <select class="select2-basic form-control" name="day_off[]" id="day_off"  multiple="multiple" required>
+                                <option value="0">@lang('Sunday')</option>
+                                <option value="1">@lang('Monday')</option>
+                                <option value="2">@lang('Tuesday')</option>
+                                <option value="3">@lang('Wednesday')</option>
+                                <option value="4">@lang('Thursday')</option>
+                                <option value="5">@lang('Friday')</option>
+                                <option value="6">@lang('Saturday')</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
