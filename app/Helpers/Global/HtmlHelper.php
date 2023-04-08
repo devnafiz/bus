@@ -100,4 +100,56 @@ if (! function_exists('htmlLang')) {
 
         }
     }
+
+    if(!function_exists('showDayOff')){
+
+        function showDayOff($val){
+
+
+            $result = '';
+        if(gettype($val) == 'array'){
+             foreach($val as $value) {
+                $result .= getDay($value);
+             }
+
+          }else{
+             $result = getDay($val);
+          }
+           return $result;
+
+        }
+    }
+
+    if(!function_exists('getDay')){
+
+        function getDay($val){
+    switch ($val) {
+        case $val==6:
+            $result = 'Saturday';
+            break;
+        case $val==0:
+            $result = 'Sunday';
+            break;
+        case $val==1:
+            $result = 'Monday';
+            break;
+        case $val==2:
+            $result = 'Tuesday';
+            break;
+        case $val==3:
+            $result = 'Wednesday';
+            break;
+        case $val==4:
+            $result = 'Thursday';
+            break;
+        case $val==5:
+            $result = 'Friday';
+            break;
+        default:
+            $result = '';
+            break;
+    }
+    return $result;
+}
+    }
 }

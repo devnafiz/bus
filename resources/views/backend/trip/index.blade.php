@@ -45,11 +45,22 @@
         		<tr>
         			<td>{{__( $item->title)}}</td>
         			<td>{{ __($item->fleetType->has_ac =1 ? 'Ac' :'no ac') }}</td>
-                    <td>{{ __($item->day_off) }}</td>
+                    <td> @if($item->day_off)
+                                            @foreach ($item->day_off as $day)
+                                                {{ __(showDayOff($day)) }} @if(!$loop->last) , @endif
+                                            @endforeach
+                                        @else
+                                            @lang('No Off Day')
+                                        @endif
+
+
+
+                </td>
                    
                     
                   
         			<td></td>
+                    <td></td>
         		</tr>
         		 @empty
                                 <tr>
