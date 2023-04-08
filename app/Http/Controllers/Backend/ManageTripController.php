@@ -12,6 +12,7 @@ use App\Models\FleetType;
 use App\Models\Schedule;
 use App\Models\Trip;
 use Carbon\Carbon;
+use App\Models\AssignedVehicle;
 
 
 
@@ -167,6 +168,19 @@ class ManageTripController extends Controller
 
         $notify[] = ['success', 'Trip save successfully'];
         return back()->withNotify($notify);
+     }
+
+
+     //assigned vehicle
+
+     public function assignedVehicleLists(){
+
+        $pageTitle = "All Assigned Vehicles";
+        $emptyMessage = "No assigned vehicle found";
+        $trips = Trip::with('fleetType.activeVehicles')->where('status', 1)->get();
+        $assignedVehicles=AssignedVehicle::with('trip','vehicle')->orderBy('id','desc')->paginate(10);
+
+        return  view('backend.trip.assigned.index',compact('pageTitle','emptyMessage','trips','assignedVehicles'));
      }
 
 

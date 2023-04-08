@@ -14,6 +14,15 @@ class FleetType extends Model
         'deck_seats' => 'object',
         'facilities' => 'array'
     ];
+
+    public function vehicles(){
+    	dd('ok');
+        return $this->hasMany(Vehicle::class);
+    }
+
+    public function activeVehicles(){
+        return $this->hasMany(Vehicle::class)->where('status', 1);
+    }
     
 
 }
