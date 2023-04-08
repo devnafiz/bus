@@ -43,7 +43,7 @@
         	<tbody>
         		 @forelse($trips as $k=>$item)
         		<tr>
-        			<td>{{__( $item+title)}}</td>
+        			<td>{{__( $item->title)}}</td>
         			<td>{{ __($item->fleetType->has_ac =1 ? 'Ac' :'no ac') }}</td>
                     <td>{{ __($item->day_off) }}</td>
                    
@@ -130,7 +130,7 @@
 
                         <div class="form-group">
                             <label class="form-control-label font-weight-bold" for="day_off">@lang('Day Off')</label>
-                            <select class="select2-basic form-control" name="day_off[]" id="day_off"  multiple="multiple" required>
+                            <select class="select2-basic form-control js-example-basic-multiple" name="day_off[]" id="day_off"  multiple="multiple" required>
                                 <option value="0">@lang('Sunday')</option>
                                 <option value="1">@lang('Monday')</option>
                                 <option value="2">@lang('Tuesday')</option>
@@ -151,9 +151,12 @@
     </div>
 
  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{{ asset('/css/clock-picker.min.css') }}">      
+  <link rel="stylesheet" type="text/css" href="{{ asset('/css/clock-picker.min.css') }}"> 
+  <link rel="stylesheet" type="text/css" href="{{ asset('/css/nice-select.css') }}">      
 
 <script src="{{ asset('js/clock-picker.min.js') }}"></script>    
+    <script type="text/javascript">
+        <script src="{{ asset('js/select.min.js') }}"></script>    
     <script type="text/javascript">
 
 
@@ -163,6 +166,60 @@ jQuery(function($) {
     align: 'left',
     donetext: 'Done'
   });
+});
+
+function makeTitle(modalName){
+                var modal = $('#'+ modalName);
+                var data1 = modal.find('select[name="fleet_type"]').find("option:selected").data('name');
+                var data2 = modal.find('select[name="start_from"]').find("option:selected").data('name');
+                var data3 = modal.find('select[name="end_to"]').find("option:selected").data('name');
+                var data  = [];
+                var title = '';
+                if(data1 != undefined){
+                    data.push(data1);
+                }
+                if(data2 != undefined)
+                    data.push(data2);
+                if(data3 != undefined)
+                    data.push(data3);
+                if(data1 != undefined && data2 != undefined && data3 != undefined) {
+                    var fleet_type_id = modal.find('select[name="fleet_type"]').val();
+                    var vehicle_route_id = modal.find('select[name="route"]').val();
+
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('admin.trip.ticket.check_price') }}",
+                        data: {
+                            "fleet_type_id" : fleet_type_id,
+                            "vehicle_route_id" : vehicle_route_id
+                        },
+                        success: function (response) {
+                            if(response.error){
+                                modal.find('input').val('');
+                                modal.find('select').val('').trigger('change');
+                                modal.modal('hide');
+                                var alertModal = $('#alertModal');
+                                alertModal.find('.container-fluid').text(response.error);
+                                alertModal.modal('show');
+                            }
+                        }
+                    });
+                }
+
+                $.each(data, function (index, value) {
+                    if(index > 0){
+                        if(index > 3)
+                            title += ' to ';
+                        else
+                            title += ' - ';
+                    }
+                    title += value;
+                });
+                $('input[name="title"]').val(title);
+            }
+
+$(document).ready(function() {
+    $('.select2-basic').select2();
 });
 
 </script>

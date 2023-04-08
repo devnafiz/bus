@@ -140,8 +140,33 @@ class ManageTripController extends Controller
 
 
      public function tripStore(Request $request){
+        //dd($request->all());
 
-        dd($request->all());
+        $request->validate([
+            'title'      => 'required',
+            'fleet_type' => 'required|integer|gt:0',
+            'route'      => 'required|integer|gt:0',
+            'schedule'   => 'required|integer|gt:0',
+            'start_from' => 'required|integer|gt:0',
+            'end_to'     => 'required|integer|gt:0',
+            'day_off'    => 'nullable|array|min:1'
+        ]);
+
+        $trip = new Trip();
+        $trip->title = $request->title;
+
+        $trip->fleet_type_id = $request->fleet_type;
+        $trip->vehicle_route_id = $request->route;
+        $trip->schedule_id = $request->schedule;
+        $trip->start_from = $request->start_from;
+
+        $trip->end_to = $request->end_to;
+        $trip->day_off = $request->day_off ?? [];
+         //dd( $trip->day_off);
+        $trip->save();
+
+        $notify[] = ['success', 'Trip save successfully'];
+        return back()->withNotify($notify);
      }
 
 

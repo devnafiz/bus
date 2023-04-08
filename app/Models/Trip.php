@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Trip extends Model
 {
     use HasFactory;
+     protected $casts = [
+        'day_off' => 'array'
+    ];
 
     public function fleetType(){
         return $this->belongsTo(FleetType::class);
