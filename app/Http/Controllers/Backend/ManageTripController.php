@@ -202,7 +202,42 @@ class ManageTripController extends Controller
       
         $start_time =Carbon::parse($trip->schedule->start_from)->format('H:i:s');
         $end_time =Carbon::parse($trip->schedule->end_from)->format('H:i:s');
-          dd($end_time);
+          //dd($end_time);
+
+          //Check if the vehicle assgined to another vehicle on this time
+
+          $vehicle_check=AssignedVehicle::where(function($q) use($request,$start_time,$end_time){
+              $q->where('start_from','>=' ,$start_time)
+                ->where('start_from','=>',$end_time)
+                ->where('vehicle_id',$request->vehicle);
+
+
+          })
+          ->orWhere(function($q) use($start_time,$end_time,$request){
+               $q->where('end_at','>=' ,$start_time)
+                ->where('end_at','=>',$end_time)
+                ->where('vehicle_id',$request->vehicle);
+
+          })->first();
+
+          if($vehicle_check){
+
+               $notify[]=['error','A vehicle had already been assinged to this trip'];
+            return back()->withNotify($notify);
+
+          }
+
+          $assignedVehicale =new AssignedVehicle();
+          $assignedVehicale->trip_id = $request->trip;
+          $assignedVehicale->vehicle_id = $request->vehicle;
+          $assignedVehicale->start_from = $trip->schedule->start_from;
+          $assignedVehicale->end_at = $trip->schedule->end_at;
+          $assignedVehicale->save();
+          
+          $notify[] = ['success', 'Vehicle assigned successfully.'];
+        return back()->withNotify($notify);
+
+
 
 
      }
