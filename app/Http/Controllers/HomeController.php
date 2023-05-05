@@ -10,4 +10,10 @@ class HomeController extends Controller
 
      	return view('home.index');
      }
+
+
+     public function busManage(){
+
+     	return view('home.bus_ticket');
+     }
 }

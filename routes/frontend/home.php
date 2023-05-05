@@ -28,3 +28,7 @@ use App\Http\Controllers\HomeController;
     ->breadcrumbs(function (Trail $trail) {
          $trail->push(__('Home'), route('frontend.index'));
      });
+
+ Route::get('/bus-ticket', [HomeController::class, 'busManage'])
+     ->name('bus.ticket');
+    
