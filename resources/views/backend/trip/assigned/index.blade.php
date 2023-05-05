@@ -45,10 +45,14 @@
         		 @forelse($assignedVehicles as $k=>$item)
         		<tr>
         			<td>{{__( $k+1)}}</td>
-        			<td>{{ __($item->trip->name) }}</td>
-                    <td>{{ __($item->vehicle->name) }}</td>
-                    <td></td>
-                      <td></td>
+        			<td>{{ __($item->trip->title) }}</td>
+                    <td>{{ __($item->vehicle->nick_name) }}</td>
+                    <td>{{__($item->vehicle->register_no)}}</td>
+                    <td>  @if($item->status == 1)
+                                        <span class="text--small badge font-weight-normal badge--success">@lang('Active')</span>
+                                        @else
+                                        <span class="text--small badge font-weight-normal badge--warning">@lang('Disabled')</span>
+                                        @endif</td>
                     
                   
         			<td></td>
