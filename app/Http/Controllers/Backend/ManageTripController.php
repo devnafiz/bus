@@ -183,6 +183,24 @@ class ManageTripController extends Controller
         return  view('backend.trip.assigned.index',compact('pageTitle','emptyMessage','trips','assignedVehicles'));
      }
 
+     public  function assignVehicle(Request $request){
+
+        $request->validate([
+            'trip'=>'required|integer',
+            'vehicle'=>'required|integer'
+
+        ]);
+
+        $trip_check =AssignedVehicle::where('trip_id',$request->trip)->first();
+
+         if($trip_check){
+            $notify[]=['error','A vehicle had already been assinged to this trip'];
+            return back()->withNotify($notify);
+        }
+
+
+     }
+
 
     
 

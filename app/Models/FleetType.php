@@ -16,7 +16,7 @@ class FleetType extends Model
     ];
 
     public function vehicles(){
-    	dd('ok');
+    	//dd('ok');
         return $this->hasMany(Vehicle::class);
     }
 
