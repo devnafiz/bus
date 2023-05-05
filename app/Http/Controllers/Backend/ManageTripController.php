@@ -198,6 +198,12 @@ class ManageTripController extends Controller
             return back()->withNotify($notify);
         }
 
+        $trip =Trip::where('id',$request->trip)->with('schedule')->firstOrFail();
+      
+        $start_time =Carbon::parse($trip->schedule->start_from)->format('H:i:s');
+        $end_time =Carbon::parse($trip->schedule->end_from)->format('H:i:s');
+          dd($end_time);
+
 
      }
 
