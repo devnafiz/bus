@@ -29,7 +29,7 @@
 										<ul class="check-box-list">
 											@foreach($fleet_type as $type)
 											<li>
-												<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">{{ __($type->name) }}<span class="count"></span></label>
+												<label class="checkbox-inline" for="1"><input name="fleetType[]" id="1" type="checkbox" value="{{ $type->id }}">{{ __($type->name) }}<span class="count"></span></label>
 											</li>
 										    @endforeach	
 											
@@ -37,21 +37,52 @@
 									</div>
 								   @endif	
 									<!--/ End Shop By Price -->
-
+                                     @if ($routes)
 									<div class="single-widget category">
 									<h3 class="title">Route</h3>
 									<ul class="categor-list">
-										<li><a href="#">T-shirts</a></li>
-										<li><a href="#">jacket</a></li>
-										<li><a href="#">jeans</a></li>
-										<li><a href="#">sweatshirts</a></li>
-										<li><a href="#">trousers</a></li>
-										<li><a href="#">kitwears</a></li>
-										<li><a href="#">accessories</a></li>
+                                      @foreach($routes as $route)
+										<li>
+												<label class="checkbox-inline" for="1"><input name="routes[]" id="1" type="checkbox" value="{{ $type->id }}" 
+
+											@if (request()->routes)
+                                    @foreach (request()->routes as $item)
+                                    @if ($item == $route->id)
+                                    checked
+                                    @endif
+                                    @endforeach
+                                    @endif>{{ __($route->name) }}<span class="count"></span></label>
+										</li>
+										@endforeach
+										
 									</ul>
 								</div>
+								@endif
 							
 								<!--/ End Single Widget -->
+								<!--/ End Shop By Price -->
+                                     @if ($schedules)
+									<div class="single-widget category">
+									<h3 class="title">Schedules</h3>
+									<ul class="categor-list">
+                                      @foreach($schedules as $schedule)
+										<li>
+												<label class="checkbox-inline" for="1"><input name="schedules[]" id="1" type="checkbox" value="{{ $type->id }}" 
+
+											@if (request()->routes)
+                                    @foreach (request()->schedules as $item)
+                                    @if ($item == $schedule->id)
+                                    checked
+                                    @endif
+                                    @endforeach
+                                    @endif>
+                                    {{ showDateTime($schedule->start_from, 'h:i a').' - '. showDateTime($schedule->end_at, 'h:i a') }} <span class="count"></span></label>
+										</li>
+										@endforeach
+										
+									</ul>
+								</div>
+								@endif
 								
 						</div>
 						</form>	
