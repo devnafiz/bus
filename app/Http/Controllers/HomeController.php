@@ -21,12 +21,15 @@ class HomeController extends Controller
 
 
      public function busManage(){
+     	$pageTitle = 'Book Ticket';
+        $emptyMessage = 'There is no trip available';
      	$fleet_type =FleetType::get();
      	$routes = VehicleRoute::get();
      	$schedules = Schedule::all();
+
      	$trips =Trip::with(['fleetType','route','schedule','startFrom','endTo'])->where('status','1')->paginate(10);
      	//dd($trips);
 
-     	return view('home.bus_ticket',compact('fleet_type','routes','schedules','trips'));
+     	return view('home.bus_ticket',compact('fleet_type','routes','schedules','trips','pageTitle','emptyMessage'));
      }
 }

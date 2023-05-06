@@ -152,4 +152,20 @@ if (! function_exists('htmlLang')) {
     return $result;
 }
     }
+
+    if(!function_exists('showAmount')){
+
+        function showAmount( $amount, $decimal = 2, $separate = true,$exceptZeros = false){
+
+            $separator ='';
+            if($separate){
+                $separator = ',';
+            }
+             $printAmount = number_format($amount, $decimal, '.', $separator);
+
+              return $printAmount;
+
+
+        }
+    }
 }

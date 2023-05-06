@@ -120,50 +120,52 @@
 							</div>
 						</div>
 						<div class="row">
-							
+							  @forelse ($trips as $trip)
+							  @php
+                                $ticket = App\Models\TicketPrice::where('fleet_type_id', $trip->fleetType->id)->where('vehicle_route_id', $trip->route->id)->first();
+                               // dd( $ticket );
+							  @endphp
 							
 							<div class="col-lg-12 col-md-6 col-12">
 								<div  class=" single-product row card">
-									 <div class="col-lg-4 col-md-4 col-12">
-									 	<h4>AC - Kansas - Echo Bass</h4>
-									 	<p>Seat Layout - 2 x 2</p>
+									<div class="row">
+
+									 <div class="col-lg-5 col-md-4 col-12">
+									 	<h4>{{$trip->fleetType->id}}{{$trip->route->id}}{{__($trip->title)}}</h4>
+									 	<p>Seat Layout - {{__($trip->fleetType->seat_layout)}}</p>
+									 	 <span class="ratting"><i class="las la-bus"></i>{{ __($trip->fleetType->name) }}</span>
 									 	
 									 </div>
 									 <div class="col-lg-4 col-md-4 col-12"></div>
-									 <div class="col-lg-4 col-md-4 col-12"></div>
+									 <div class="col-lg-3 col-md-4 col-12">
+									 	 <p class="rent mb-0">{{ __($general->cur_sym) }}{{$ticket->price}}</p>
+									 </div>
+									 </div>
 								<hr>	 
 
                                  <div class="col-lg-12">
+                                 	 @if ($trip->fleetType->facilities)
 									 <div>
-									 	<p>Facilities - Water Bottle Pillow Wifi</p>
+									 	<p>Facilities - 
+                                         @foreach ($trip->fleetType->facilities as $item)
+									   <span class="facilities">{{ __($item) }}</span>
+                                    @endforeach
+
+                                   </p>
 									 </div>
+									 @endif
 								</div>
 
 								</div>
 								
 								
 							</div>
-                            <div class="col-lg-12 col-md-6 col-12">
-								<div  class=" single-product row card">
-									 <div class="col-lg-4 col-md-4 col-12">
-									 	<h4>AC - Kansas - Echo Bass</h4>
-									 	<p>Seat Layout - 2 x 2</p>
-									 	
-									 </div>
-									 <div class="col-lg-4 col-md-4 col-12"></div>
-									 <div class="col-lg-4 col-md-4 col-12"></div>
-								<hr>	 
-
-                                 <div class="col-lg-12">
-									 <div>
-									 	<p>Facilities - Water Bottle Pillow Wifi</p>
-									 </div>
-								</div>
-
-								</div>
-								
-								
-							</div>
+							 @empty
+		                    <div class="ticket-item">
+		                        <h5>{{ __($emptyMessage) }}</h5>
+		                    </div>
+		                    @endforelse
+                           
 
 						</div>
 					</div>
