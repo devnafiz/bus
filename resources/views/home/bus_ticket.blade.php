@@ -122,6 +122,12 @@
 						<div class="row">
 							  @forelse ($trips as $trip)
 							  @php
+
+							   $start =Carbon\Carbon::parse($trip->schedule->start_from);
+							  
+							    $end =Carbon\Carbon::parse($trip->schedule->end_at);
+							    $diff= $start->diff($end);
+							    // dd($diff);
                                 $ticket = App\Models\TicketPrice::where('fleet_type_id', $trip->fleetType->id)->where('vehicle_route_id', $trip->route->id)->first();
                                // dd( $ticket );
 							  @endphp
@@ -136,9 +142,22 @@
 									 	 <span class="ratting"><i class="las la-bus"></i>{{ __($trip->fleetType->name) }}</span>
 									 	
 									 </div>
-									 <div class="col-lg-4 col-md-4 col-12"></div>
+									 <div class="col-lg-4 col-md-4 col-12">
+									 	 <div class="bus-time">
+		                                <p class="time">{{ showDateTime($trip->schedule->start_from, 'h:i A') }}</p>
+		                                <p class="place">{{ __($trip->startFrom->name) }}</p>
+	                                     </div>
+									 </div>
 									 <div class="col-lg-3 col-md-4 col-12">
 									 	 <p class="rent mb-0">{{ __($general->cur_sym) }}{{$ticket->price}}</p>
+									 	 <p>{{__('off day')}} :
+                                          @foreach($trip->day_off as $day)
+									 	 	<span class="badge badge-info">{{ __(showDayOff($day)) }}</span>
+
+									 	 	@endforeach
+									 	   
+
+									 	 </p>
 									 </div>
 									 </div>
 								<hr>	 
