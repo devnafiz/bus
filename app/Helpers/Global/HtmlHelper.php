@@ -177,4 +177,18 @@ if (! function_exists('htmlLang')) {
 
         }
     }
+
+    if(!function_exists('getImage')){
+        function getImage($image,$size = null)
+        {
+            $clean = '';
+            if (file_exists($image) && is_file($image)) {
+                return asset($image) . $clean;
+            }
+            if ($size) {
+               // return route('placeholder.image',$size);
+            }
+            return asset('assets/images/default.png');
+        }
+    }
 }

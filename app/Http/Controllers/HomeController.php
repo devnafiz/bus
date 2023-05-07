@@ -8,6 +8,8 @@ use App\Models\Schedule;
 use App\Models\Trip;
 use Carbon\Carbon;
 use App\Models\VehicleRoute;
+use App\Models\Counter;
+use App\Lib\BusLayout;
 
 
 
@@ -35,6 +37,16 @@ class HomeController extends Controller
 
      public function showSeat(Request $request,$id){
 
-         dd($id);
+         //dd($id);
+           $trip = Trip::with( ['fleetType' ,'route', 'schedule', 'startFrom' , 'endTo', 'assignedVehicle.vehicle', 'bookedTickets'])->where('status', 1)->where('id', $id)->firstOrFail();
+            $emptyMessage = 'There is no trip available';
+            $pageTitle = $trip->title;
+            $route     = $trip->route;
+            $stoppageArr = $trip->route->stoppages;
+            $stoppages = Counter::routeStoppages($stoppageArr);
+            $busLayout = new BusLayout($trip);
+             //dd($loop->index);
+
+            return view('home.book_ticket',compact('trip','route','stoppageArr','stoppages','pageTitle','emptyMessage','busLayout')); 
      }
 }
