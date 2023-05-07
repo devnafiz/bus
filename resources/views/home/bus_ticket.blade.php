@@ -147,6 +147,10 @@
 		                                <p class="time">{{ showDateTime($trip->schedule->start_from, 'h:i A') }}</p>
 		                                <p class="place">{{ __($trip->startFrom->name) }}</p>
 	                                     </div>
+	                                     <div class=" bus-time">
+                                            <p class="time">{{ showDateTime($trip->schedule->end_at, 'h:i A') }}</p>
+                                           <p class="place">{{ __($trip->endTo->name) }}</p>
+                                         </div>
 									 </div>
 									 <div class="col-lg-3 col-md-4 col-12">
 									 	 <p class="rent mb-0">{{ __($general->cur_sym) }}{{$ticket->price}}</p>
@@ -158,6 +162,7 @@
 									 	   
 
 									 	 </p>
+									 	 <a href="{{ route('frontend.ticket.seats',[$trip->id,slug($trip->title)])}}" class="btn">@lang('Select Seat')</a>
 									 </div>
 									 </div>
 								<hr>	 

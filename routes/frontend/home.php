@@ -32,5 +32,7 @@ use App\Http\Controllers\HomeController;
  Route::get('/bus-ticket', [HomeController::class, 'busManage'])
      ->name('bus.ticket');
 
- Route::get('ticket/search',[HomeController::class,'search'])->name('search');    
+ Route::get('ticket/search',[HomeController::class,'search'])->name('search'); 
+
+ Route::get('/ticket/{id}/{slug}', [HomeController::class,'showSeat'])->name('ticket.seats');   
     

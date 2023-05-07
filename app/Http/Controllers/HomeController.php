@@ -32,4 +32,9 @@ class HomeController extends Controller
 
      	return view('home.bus_ticket',compact('fleet_type','routes','schedules','trips','pageTitle','emptyMessage'));
      }
+
+     public function showSeat(Request $request,$id){
+
+         dd($id);
+     }
 }

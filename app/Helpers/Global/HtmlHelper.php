@@ -168,4 +168,13 @@ if (! function_exists('htmlLang')) {
 
         }
     }
+
+    if(!function_exists('slug')){
+
+        function slug($string){
+
+        return Illuminate\Support\Str::slug($string);
+
+        }
+    }
 }
