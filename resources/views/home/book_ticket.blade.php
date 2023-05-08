@@ -3,12 +3,12 @@
 
 @section('content')
      <div class="row">
-     	<div class="col-md-4">
+     	<div class="col-md-6">
 
      		
      		
      	</div>
-          <div class="col-md-8">
+          <div class="col-md-6">
 
                  @foreach ($trip->fleetType->deck_seats as $seat)
                 <div class="seat-plan-inner">
@@ -34,11 +34,15 @@
                     if($lastRowSeat==1 && $i== $totalRow-1) break;
                     $seatNumber = $chr;
                     $chr++;
-                    $seats==$busLayout->getSeats($deckIndex,$seatNumber);
-                    dd($seats);
+                    $seats=$busLayout->getSeats($deckIndex,$seatNumber);
+                    //dd($seats);
                     @endphp
 
-
+                       <div class="seat-wrapper">
+                                @php echo $seats->left; @endphp
+                                  @php echo $seats->right; @endphp
+                                
+                            </div>
 
                     @endfor
 
@@ -106,6 +110,42 @@
     position: absolute;
     right: 20px;
     top: 15px;
+}
+.seat-wrapper .left-side, .seat-wrapper .right-side {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.seat-wrapper .seat {
+    height: 40px !important;
+    width: 30px !important;
+    color: #777;
+    border: 1px solid #979797;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 100;
+    font-size: 14px;
+    display: inline-block;
+}
+.seat-wrapper .seat span {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    height: 4px;
+    border: 1px solid rgba(27, 39, 61, 0.25);
+    border-radius: 2px;
+    bottom: 6px;
+}
+.seat-wrapper .left-side, .seat-wrapper .right-side {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.seat-wrapper .right-side {
+     float: right;
 }
   </style>   
 

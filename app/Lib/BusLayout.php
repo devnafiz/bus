@@ -31,7 +31,7 @@ class BusLayout
   public function getDeckHeader($deckNumber){
 
   	 $html='<span class="front">Front</span>
-            <span class="rear">Rear</span>
+            
         ';
 
          if($deckNumber== 0){
@@ -76,13 +76,52 @@ class BusLayout
     }
 
     public function leftSeat(){
+    	$html ='<div class="left-side">';
+
+    	$seatData ='';
+    	for($i=1; $i<=$this->sitLayouts->left; $i++){
+    		$seatData.=$this->generateSeats($i);
+
+    	}
+    	$html.=$seatData;
+
+        $html .=  '</div>';
+
+        return $html;
+
+
 
 
     }
 
     public function rightSeat(){
 
+    	$html = '<div class="right-side">';
+
+        $seatData = '';
+        for ($i = 1; $i <= $this->sitLayouts->right; $i++){
+            $seatData .= $this->generateSeats($i + $this->sitLayouts->left);
+        }
+
+        $html .= $seatData;
+        $html .=  '</div>';
+        return $html;
+
     	
+    }
+
+    public function generateSeats($loopIndex, $deckNumber = null,$seatNumber = null){
+
+    	$deckNumber = $deckNumber ?? $this->deckNumber;
+        $seatNumber = $seatNumber ?? $this->seatNumber;
+        return "<div>
+                    <span class='seat' data-seat='".($deckNumber .'-'. $seatNumber.''.$loopIndex) ."'>
+                        $this->seatNumber$loopIndex
+                        <span></span>
+                    </span>
+                </div>";
+
+
     }
 
 
