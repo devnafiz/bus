@@ -17,6 +17,32 @@
                     @php
                      echo $busLayout->getDeckHeader($loop->index);
                     @endphp
+                    @php
+                     $totalRow=$busLayout->getTotalRow($seat);
+                    $lastRowSeat = $busLayout->getLastRowSit($seat);
+                    $chr ='A';
+                    $deckIndex =$loop->index+1;
+                    $seatlayout= $busLayout->sitLayouts();
+                    $rowItem =$seatlayout->left +$seatlayout->right;
+                     //dd($rowItem);
+                    @endphp
+
+                    @for($i=1 ; $i<=$totalRow;$i++)
+
+                    @php
+
+                    if($lastRowSeat==1 && $i== $totalRow-1) break;
+                    $seatNumber = $chr;
+                    $chr++;
+                    $seats==$busLayout->getSeats($deckIndex,$seatNumber);
+                    dd($seats);
+                    @endphp
+
+
+
+                    @endfor
+
+
 
                    </div>
                   </div> 
@@ -65,6 +91,21 @@
     max-width: 100%;
     padding: 80px 25px 30px;
     margin-bottom: 55px;
+}
+.seat-plan-inner .lower {
+    width: 50px;
+    height: 40px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: #777;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.seat-plan-inner .driver {
+    position: absolute;
+    right: 20px;
+    top: 15px;
 }
   </style>   
 

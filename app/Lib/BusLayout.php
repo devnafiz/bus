@@ -46,6 +46,44 @@ class BusLayout
          }
          return $html;
   }
+  public function getTotalRow($seat){
+
+  	  $rowItem = $this->sitLayouts->left +$this->sitLayouts->right;
+  	   $totalRow   = floor ($seat / $rowItem);
+  	   $this->totalRow = $totalRow;
+  	 // dd($totalRow );
+  	   return $this->totalRow;
+  }
+
+   public function getLastRowSit($seat){
+
+   	$rowItem = $this->sitLayouts->left + $this->sitLayouts->right;
+   	$lastRowSeat =$seat -$this->getTotalRow($seat)* $rowItem;
+   	return  $lastRowSeat;
+   }
+
+    public function getSeats($deckNumber,$seatNumber){
+
+    	$this->deckNumber = $deckNumber;
+    	$this->seatNumber = $seatNumber;
+
+    	$seats =[
+    		'left'=>$this->leftSeat(),
+    		'right'=>$this->rightSeat()
+
+    	];
+    	return (object)$seats ;
+    }
+
+    public function leftSeat(){
+
+
+    }
+
+    public function rightSeat(){
+
+    	
+    }
 
 
 
