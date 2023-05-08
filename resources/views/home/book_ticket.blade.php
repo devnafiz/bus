@@ -148,6 +148,11 @@
         }
              // alert(destination);
                //click on seat
+          function reset() {
+            $('.seat-wrapper .seat').removeClass('selected');
+            $('.seat-wrapper .seat').parent().removeClass('seat-condition selected-by-ladies selected-by-gents selected-by-others disabled');
+            $('.selected-seat-details').html('');
+        }     
         $('.seat-wrapper .seat').on('click', function() {
             var pickupPoint = $('select[name="pickup_point"]').val();
             var droppingPoing = $('select[name="dropping_point"]').val();
@@ -164,8 +169,89 @@
                 notify('error', "@lang('Please select pickup point and dropping point before select any seat')")
             }
         });
+
+         //select and booked seat
+        function selectSeat() {
+         // alert('hi');
+            let selectedSeats = $('.seat.selected');
+            //alert(selectedSeats);
+            let seatDetails = ``;
+            let price = $('input[name=price]').val();
+            let subtotal = 0;
+            let currency = '{{ __($general->cur_text) }}';
+            let seats = '';
+            if (selectedSeats.length > 0) {
+                $('.booked-seat-details').removeClass('d-none');
+                $.each(selectedSeats, function(i, value) {
+                    seats += $(value).data('seat') + ',';
+                    seatDetails += `<span class="list-group-item d-flex justify-content-between">${$(value).data('seat')} <span>${price} ${currency}</span></span>`;
+                    subtotal = subtotal + parseFloat(price);
+                });
+
+                $('input[name=seats]').val(seats);
+                $('.selected-seat-details').html(seatDetails);
+                $('.selected-seat-details').append(`<span class="list-group-item d-flex justify-content-between">@lang('Sub total')<span>${subtotal} ${currency}</span></span>`);
+            } else {
+                $('.selected-seat-details').html('');
+                $('.booked-seat-details').addClass('d-none');
+            }
+        }
+
+         //booked seat
+        function showBookedSeat() {
+            reset();
+            var date = $('input[name="date_of_journey"]').val();
+            var sourceId = $('select[name="pickup_point"]').find("option:selected").val();
+            var destinationId = $('select[name="dropping_point"]').find("option:selected").val();
+
+            if (sourceId == destinationId && destinationId != '') {
+                notify('error',"@lang('Source Point and Destination Point Must Not Be Same')");
+                $('select[name="dropping_point"]').val('').select2();
+                return false;
+            } else if (sourceId != destinationId) {
+
+                var routeId = '{{ $trip->route->id }}';
+                var fleetTypeId = '{{ $trip->fleetType->id }}';
+
+                if (sourceId && destinationId) {
+                    getprice(routeId, fleetTypeId, sourceId, destinationId, date)
+                }
+            }
+        }
+
              
           });
+     </script>
+
+     
+          
+<script>
+    // / Select Seats
+$(".seat-wrapper .seat").on("click", function () {
+     alert('hi')
+    if (!$(this).parent().hasClass("disabled")) $(this).toggleClass("selected");
+});
+// Seat Expand
+$(".select-seat-btn").on("click", function () {
+    $(this)
+        .closest(".ticket-item")
+        .children(".seat-plan-wrapper")
+        .toggleClass("selected");
+});
+// Close Pane
+$(".tab-pane .close-btn").on("click", function () {
+    $(this).parent().removeClass("active");
+});
+
+$(".info-item").on("mouseover", function () {
+    $(".info-item").removeClass("active");
+    $(this).addClass("active");
+});
+
+$(document).ready(function () {
+    $(".select2").select2();
+});
+</script>
      </script>
 
   <style>
@@ -253,6 +339,11 @@
 }
 .seat-wrapper .right-side {
      float: right;
+}
+.seat-wrapper .seat.selected {
+    border-color: rgb(57, 163, 57);
+    background: rgb(57, 163, 57);
+    color: #fff;
 }
   </style>   
 

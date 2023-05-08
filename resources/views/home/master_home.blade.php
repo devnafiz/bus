@@ -118,6 +118,32 @@
  }
  @endif 
 </script>
+<script>
+	/ Select Seats
+$(".seat-wrapper .seat").on("click", function () {
+    if (!$(this).parent().hasClass("disabled")) $(this).toggleClass("selected");
+});
+// Seat Expand
+$(".select-seat-btn").on("click", function () {
+    $(this)
+        .closest(".ticket-item")
+        .children(".seat-plan-wrapper")
+        .toggleClass("selected");
+});
+// Close Pane
+$(".tab-pane .close-btn").on("click", function () {
+    $(this).parent().removeClass("active");
+});
+
+$(".info-item").on("mouseover", function () {
+    $(".info-item").removeClass("active");
+    $(this).addClass("active");
+});
+
+$(document).ready(function () {
+    $(".select2").select2();
+});
+</script>
  
 	<!-- Jquery -->
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
@@ -141,6 +167,7 @@
 	<script src="{{asset('frontend/js/finalcountdown.min.js')}}"></script>
 	<!-- Nice Select JS -->
 	<!-- <script src="{{asset('frontend/js/nicesellect.js')}}"></script> -->
+	<script src="{{asset('frontend/js/select2.min.js') }}"></script>
 	<!-- Flex Slider JS -->
 	<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
 	<!-- ScrollUp JS -->
