@@ -35,4 +35,6 @@ use App\Http\Controllers\HomeController;
  Route::get('ticket/search',[HomeController::class,'search'])->name('search'); 
 
  Route::get('/ticket/{id}/{slug}', [HomeController::class,'showSeat'])->name('ticket.seats');   
+ Route::post('/ticket/book/{id}', [HomeController::class,'bookTicket'])->name('ticket.book');
+
     

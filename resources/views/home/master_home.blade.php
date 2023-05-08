@@ -27,7 +27,7 @@
 	<!-- Themify Icons -->
     <link rel="stylesheet" href="{{asset('frontend/css/themify-icons.css')}}">
 	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="{{asset('frontend/css/niceselect.css')}}">
+   <!--  <link rel="stylesheet" href="{{asset('frontend/css/niceselect.css')}}"> -->
 	<!-- Animate CSS -->
     <link rel="stylesheet" href="{{asset('frontend/css/animate.css')}}">
 	<!-- Flex Slider CSS -->
@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{asset('frontend/css/owl-carousel.css')}}">
 	<!-- Slicknav -->
     <link rel="stylesheet" href="{{asset('frontend/css/slicknav.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 	
 	<!-- Eshop StyleSheet -->
 	<link rel="stylesheet" href="{{asset('frontend/css/reset.css')}}">
@@ -46,16 +47,17 @@
 	
 </head>
 <body class="js">
+
 	
 	<!-- Preloader -->
-	<div class="preloader">
+	<!-- <div class="preloader">
 		<div class="preloader-inner">
 			<div class="preloader-icon">
 				<span></span>
 				<span></span>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- End Preloader -->
 	
 	
@@ -81,6 +83,41 @@
 	
 	<!-- Start Footer Area -->
 	@include('home.body.footer')
+
+	<link rel="stylesheet" href="https://script.viserlab.com/viserbus/assets/global/css/iziToast.min.css">
+<script src="https://script.viserlab.com/viserbus/assets/global/js/iziToast.min.js"></script>
+
+<script>
+    "use strict";
+    function notify(status,message) {
+        iziToast[status]({
+            message: message,
+            position: "topRight"
+        });
+    }
+</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script>
+ @if(Session::has('message'))
+ var type = "{{ Session::get('alert-type','info') }}"
+ switch(type){
+    case 'info':
+    toastr.info(" {{ Session::get('message') }} ");
+    break;
+    case 'success':
+    toastr.success(" {{ Session::get('message') }} ");
+    break;
+    case 'warning':
+    toastr.warning(" {{ Session::get('message') }} ");
+    break;
+    case 'error':
+    toastr.error(" {{ Session::get('message') }} ");
+    break; 
+ }
+ @endif 
+</script>
  
 	<!-- Jquery -->
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
@@ -103,7 +140,7 @@
 	<!-- Countdown JS -->
 	<script src="{{asset('frontend/js/finalcountdown.min.js')}}"></script>
 	<!-- Nice Select JS -->
-	<script src="{{asset('frontend/js/nicesellect.js')}}"></script>
+	<!-- <script src="{{asset('frontend/js/nicesellect.js')}}"></script> -->
 	<!-- Flex Slider JS -->
 	<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
 	<!-- ScrollUp JS -->
