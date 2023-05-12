@@ -174,7 +174,7 @@
         function selectSeat() {
          // alert('hi');
             let selectedSeats = $('.seat.selected');
-            //alert(selectedSeats);
+            alert(selectedSeats);
             let seatDetails = ``;
             let price = $('input[name=price]').val();
             let subtotal = 0;
@@ -221,6 +221,15 @@
 
              
           });
+
+
+    function  getprice(routeId,fleetTypeId,sourceId,destinationId,date){
+        var data= {
+            "trip_id": '{{$trip->id}}'
+        }
+        alert(data);
+
+    }         
      </script>
 
      
@@ -228,7 +237,7 @@
 <script>
     // / Select Seats
 $(".seat-wrapper .seat").on("click", function () {
-     alert('hi')
+    // alert('hi')
     if (!$(this).parent().hasClass("disabled")) $(this).toggleClass("selected");
 });
 // Seat Expand
